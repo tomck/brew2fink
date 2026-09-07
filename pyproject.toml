@@ -2,6 +2,7 @@
 name = "brew2fink"
 version = "0.1.1"
 requires-python = ">=3.9"
+dependencies = ["macpkg-migrate>=0.3,<0.4"]
 [project.scripts]
 brew2fink = "brew2fink.cli:main"
 [build-system]

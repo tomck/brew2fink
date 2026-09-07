@@ -9,9 +9,11 @@ brew install brew2fink
 
 Safe Homebrew-to-Fink migration planner. It inventories explicitly requested
 Homebrew formulae and installed casks, reads the published `macpkg-catalog`,
-and produces a reviewable migration plan and CSV. Confident Fink mappings may
-be installed only with `--install`; near-hits and ambiguous results always
-remain review-only. Homebrew is never removed automatically.
+and produces a reviewable migration plan and CSV. The shared planning and
+safety policy comes from `macpkg-migrate` 0.3.x; Fink commands and checks stay
+in this application. Confident Fink mappings may be installed only with
+`--install`; near-hits and ambiguous results always remain review-only.
+Homebrew is never removed automatically.
 
 ```sh
 brew2fink prepare
