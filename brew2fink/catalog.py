@@ -1,6 +1,6 @@
 import urllib.request
 from pathlib import Path
-from macpkg_migrate.core import Identity, candidates_for, load_snapshot
+from macpkg_migrate_core import Identity, candidates_for, load_snapshot
 
 DEFAULT_URL="https://tomck.github.io/macpkg-catalog/catalog.json"
 DEFAULT_CACHE="~/.cache/brew2fink/macpkg-catalog.json"

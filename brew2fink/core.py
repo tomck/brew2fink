@@ -1,6 +1,6 @@
 import csv, json, shutil, subprocess
 from pathlib import Path
-from macpkg_migrate.core import Identity, candidates_for, dry_run, install_allowed, plan_record
+from macpkg_migrate_core import Identity, candidates_for, dry_run, install_allowed, plan_record
 
 def inventory(run=subprocess.run):
     data=json.loads(run(["brew","info","--json=v2","--installed"],capture_output=True,text=True,check=True).stdout)
