@@ -20,20 +20,26 @@ Safe workflow:
   1. Inventory explicitly installed Homebrew packages:
        brew2fink inventory --output brew-inventory.json
 
-  2. Prepare a one-stop dry-run plan and review CSV:
+  2. Prepare a one-stop plan and review CSV:
        brew2fink prepare
-     This downloads and caches the published macpkg-catalog relationships.
-     It never installs Fink packages.
+     This inventories Homebrew, downloads and caches the published
+     macpkg-catalog snapshot, and writes migration-plan.json plus
+     migration-preview.csv. It never installs Fink packages.
 
-  3. Review migration-preview.csv, then perform the reviewed installation:
+  3. Review migration-preview.csv, then inspect the dry run:
+       brew2fink migrate --plan migration-plan.json
+     No packages are changed by this command.
+
+  4. Apply the reviewed installation:
        brew2fink migrate --plan migration-plan.json --install
      Add --yes only for unattended execution.
 
-  4. Refresh an existing Fink installation independently:
-       brew2fink update-fink
-
   5. Verify installed Fink packages:
        brew2fink verify --plan migration-plan.json
+
+  6. Refresh an existing Fink installation independently:
+       brew2fink update-fink
+     If Fink is not installed, install it separately before applying the plan.
 
 Near-hits and ambiguous mappings always require review. Homebrew packages are
 never removed automatically.

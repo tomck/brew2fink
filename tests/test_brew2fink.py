@@ -1,8 +1,12 @@
 import json
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
+from unittest.mock import patch
 from brew2fink.catalog import load
 from brew2fink.core import plan, install
+from brew2fink.cli import main
 
 class TestBrew2Fink(unittest.TestCase):
     def test_catalog_and_near_hit_are_review_only(self):
@@ -43,3 +47,18 @@ class TestBrew2Fink(unittest.TestCase):
         result=install(rows, apply=True, run=run)
         self.assertEqual(result[0]["status"], "target-missing")
         self.assertEqual(calls, [["fink", "list", "wget"]])
+
+    def test_no_argument_guide_has_review_dry_run_apply_verify_sequence(self):
+        output=StringIO()
+        with patch("sys.argv", ["brew2fink"]), redirect_stdout(output):
+            main()
+        guide=output.getvalue()
+        for text in (
+            "brew2fink prepare",
+            "Review migration-preview.csv",
+            "brew2fink migrate --plan migration-plan.json",
+            "brew2fink migrate --plan migration-plan.json --install",
+            "brew2fink verify --plan migration-plan.json",
+            "never removed automatically",
+        ):
+            self.assertIn(text, guide)
